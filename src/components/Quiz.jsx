@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import QUESTIONS from "../question";
 import quizCompleteImg from "../assets/quiz-complete.png";
+import QuestionTimer from "./QuestionTimer";
 
 const Quiz = () => {
   const [userAnswers, setUserAnswers] = useState([]);
@@ -28,6 +29,7 @@ const Quiz = () => {
   shuffledAnswers.sort(() => Math.random() - 0.5);
   return (
     <div id="quiz">
+      <QuestionTimer timer={10000} onFinishCountdown={()=>handleSelectAnswer(null)}/>
       <div id="question">
         <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
         <ul id="answers">
