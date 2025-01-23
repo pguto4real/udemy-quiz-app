@@ -23,6 +23,10 @@ const Quiz = () => {
     },
     []
   );
+  const handleAnswerSkip = useCallback(
+    () => handleSelectAnswer(null),
+    [handleSelectAnswer]
+  );
 
   console.log(count);
   if (quizIsComplete) {
@@ -38,9 +42,9 @@ const Quiz = () => {
   return (
     <div id="quiz">
       <QuestionTimer
-        count={count}
+        key={activeQuestionIndex}
         timer={10000}
-        onFinishCountdown={() => handleSelectAnswer(null)}
+        onFinishCountdown={ () => handleSelectAnswer(null)}
       />
       <div id="question">
         <h2>{QUESTIONS[activeQuestionIndex].text}</h2>

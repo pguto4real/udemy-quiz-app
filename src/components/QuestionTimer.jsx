@@ -18,13 +18,12 @@ const QuestionTimer = ({ timer, onFinishCountdown,count }) => {
     const interval = setInterval(() => {
       setRemainingTime((prevTime) => prevTime - 100);
     }, 100);
-count++
+
     return () => {
       clearInterval(interval);
     };
   }, []);
 
-  console.log(remainingTime)
   return <progress id="question-time" value={remainingTime} max={timer} />;
 };
 
