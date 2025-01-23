@@ -8,27 +8,27 @@ import { useCallback } from "react";
 
 const Quiz = () => {
   const [userAnswers, setUserAnswers] = useState([]);
-  const [count, setCount] = useState(0);
+  const [answerState, setAnswerState] = useState('unanswered');
   const activeQuestionIndex = userAnswers.length;
 
   const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
 
   const handleSelectAnswer = useCallback(
     function handleSelectAnswer(selectedAnswer) {
-      console.log(123);
+    
       setUserAnswers((prevUserAnswers) => {
         return [...prevUserAnswers, selectedAnswer];
       });
-      setCount(activeQuestionIndex);
+      
     },
     []
   );
-  const handleAnswerSkip = useCallback(
-    () => handleSelectAnswer(null),
-    [handleSelectAnswer]
-  );
+  // const handleAnswerSkip = useCallback(
+  //   () => handleSelectAnswer(null),
+  //   [handleSelectAnswer]
+  // );
 
-  console.log(count);
+
   if (quizIsComplete) {
     return (
       <div id="summary">
