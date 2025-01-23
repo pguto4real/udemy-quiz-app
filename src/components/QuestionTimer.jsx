@@ -2,33 +2,29 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 
-const QuestionTimer = ({ timer,onFinishCountdown }) => {
+const QuestionTimer = ({ timer, onFinishCountdown,count }) => {
   const [remainingTime, setRemainingTime] = useState(timer);
 
-   useEffect(() => {
-      console.log("Timer Set");
-  
-      const timerSet = setTimeout(() => {
-        onFinishCountdown();
-      }, timer);
-  
-      return () => {
-        console.log("Cleaning up");
-        clearTimeout(timerSet);
-      };
-    }, [onFinishCountdown]);
+
+  useEffect(() => {
+    const timerSet = setTimeout(onFinishCountdown, timer);
+
+    return () => {
+      clearTimeout(timerSet);
+    };
+  }, [onFinishCountdown,timer]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log("Timer Set");
-      setRemainingTime((prevTime) => prevTime - 10);
-    }, 10);
-
+      setRemainingTime((prevTime) => prevTime - 100);
+    }, 100);
+count++
     return () => {
-      console.log("Cleaning up interval");
       clearInterval(interval);
     };
   }, []);
+
+  console.log(remainingTime)
   return <progress id="question-time" value={remainingTime} max={timer} />;
 };
 

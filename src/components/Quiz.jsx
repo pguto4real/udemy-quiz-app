@@ -4,19 +4,27 @@ import { useState } from "react";
 import QUESTIONS from "../question";
 import quizCompleteImg from "../assets/quiz-complete.png";
 import QuestionTimer from "./QuestionTimer";
+import { useCallback } from "react";
 
 const Quiz = () => {
   const [userAnswers, setUserAnswers] = useState([]);
+  const [count, setCount] = useState(0);
   const activeQuestionIndex = userAnswers.length;
 
   const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
 
-  function handleSelectAnswer(selectedAnswer) {
-    setUserAnswers((prevUserAnswers) => {
-      return [...prevUserAnswers, selectedAnswer];
-    });
-  }
+  const handleSelectAnswer = useCallback(
+    function handleSelectAnswer(selectedAnswer) {
+      console.log(123);
+      setUserAnswers((prevUserAnswers) => {
+        return [...prevUserAnswers, selectedAnswer];
+      });
+      setCount(activeQuestionIndex);
+    },
+    []
+  );
 
+  console.log(count);
   if (quizIsComplete) {
     return (
       <div id="summary">
@@ -29,7 +37,11 @@ const Quiz = () => {
   shuffledAnswers.sort(() => Math.random() - 0.5);
   return (
     <div id="quiz">
-      <QuestionTimer timer={10000} onFinishCountdown={()=>handleSelectAnswer(null)}/>
+      <QuestionTimer
+        count={count}
+        timer={10000}
+        onFinishCountdown={() => handleSelectAnswer(null)}
+      />
       <div id="question">
         <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
         <ul id="answers">
