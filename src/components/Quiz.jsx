@@ -7,6 +7,7 @@ import QuestionTimer from "./QuestionTimer";
 import { useCallback } from "react";
 import { useRef } from "react";
 import Answers from "./Answers";
+import { Question } from "./Question";
 
 const Quiz = () => {
   const [userAnswers, setUserAnswers] = useState([]);
@@ -53,21 +54,14 @@ const Quiz = () => {
 
   return (
     <div id="quiz">
-      <QuestionTimer
+      <Question
         key={activeQuestionIndex}
-        timer={10000}
-        onFinishCountdown={() => handleSelectAnswer(null)}
+        questionText={QUESTIONS[activeQuestionIndex].text}
+        answers={QUESTIONS[activeQuestionIndex].answers}
+        onSelectAnswer={handleSelectAnswer}
+        selectedAnswer={userAnswers[userAnswers.length - 1]}
+        answerState={answerState}
       />
-      <div id="question">
-        <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
-        <Answers
-          key={activeQuestionIndex}
-          answers={QUESTIONS[activeQuestionIndex].answers}
-          selectedAnswer={userAnswers[userAnswers.length - 1]}
-          answerState={answerState}
-          onSelect={handleSelectAnswer}
-        />
-      </div>
     </div>
   );
 };
