@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+
+import logoImg from "../assets/quiz-logo.png";
 
 const Header = () => {
   return (
-    <div>Header</div>
-  )
-}
+    <header>
+      <img src={logoImg} alt="" />
+      <h1>ReactQuiz</h1>
+    </header>
+  );
+};
 
-export default Header
+export default Header;
