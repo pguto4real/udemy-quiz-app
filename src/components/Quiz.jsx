@@ -38,10 +38,7 @@ const Quiz = () => {
     },
     [activeQuestionIndex]
   );
-  // const handleAnswerSkip = useCallback(
-  //   () => handleSelectAnswer(null),
-  //   [handleSelectAnswer]
-  // );
+  
 
   if (quizIsComplete) {
     return (
