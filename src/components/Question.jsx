@@ -4,18 +4,11 @@ import Answers from "./Answers";
 import { useCallback } from "react";
 import { useState } from "react";
 import QUESTION from "../question.js";
-export const Question = ({
-  
-  activeQuestionIndex,
-  onSelectAnswer,
-
-
-}) => {
+export const Question = ({ activeQuestionIndex, onSelectAnswer }) => {
   const [answer, setAnswer] = useState([
     { selectedAnswer: "", isCorrect: null },
   ]);
-// console.log(key)
-console.log(questionText)
+
   function handleSelectAnswer(userAnswer) {
     setAnswer({
       selectedAnswer: userAnswer,
@@ -25,12 +18,16 @@ console.log(questionText)
     setTimeout(() => {
       setAnswer({
         selectedAnswer: userAnswer,
-        isCorrect: QUESTION[key].answers[0] === userAnswer,
+        isCorrect: QUESTION[activeQuestionIndex].answers[0] === userAnswer,
       });
+
+      setTimeout(() => {
+        onSelectAnswer(userAnswer);
+      }, 2000);
     }, 1000);
   }
 
- let answerState = "";
+  let answerState = "";
   if (answer.selectedAnswer) {
     answerState = answer.isCorrect ? "correct" : "wrong";
   }
@@ -42,12 +39,14 @@ console.log(questionText)
         onFinishCountdown={() => onSelectAnswer(null)}
       />
       <div id="question">
-        <h2>{QUESTION[activeQuestionIndex].text}</h2>
+        <h2>
+          ({activeQuestionIndex + 1}) {QUESTION[activeQuestionIndex].text}
+        </h2>
         <Answers
           answers={QUESTION[activeQuestionIndex].answers}
-          selectedAnswer={selectedAnswer}
+          selectedAnswer={answer.selectedAnswer}
           answerState={answerState}
-          onSelect={onSelectAnswer}
+          onSelect={handleSelectAnswer}
         />
       </div>
     </>
