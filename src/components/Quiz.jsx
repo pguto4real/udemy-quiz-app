@@ -24,6 +24,7 @@ const Quiz = () => {
     });
   },
   []);
+  const handleSkipAnswer = useCallback(() => handleSelectAnswer(null), []);
 
   if (quizIsComplete) {
     return (
@@ -40,6 +41,7 @@ const Quiz = () => {
         key={activeQuestionIndex}
         activeQuestionIndex={activeQuestionIndex}
         onSelectAnswer={handleSelectAnswer}
+        onSkipAnswer={handleSkipAnswer}
       />
     </div>
   );

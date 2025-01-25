@@ -4,11 +4,23 @@ import Answers from "./Answers";
 import { useCallback } from "react";
 import { useState } from "react";
 import QUESTION from "../question.js";
-export const Question = ({ activeQuestionIndex, onSelectAnswer }) => {
+export const Question = ({
+  activeQuestionIndex,
+  onSelectAnswer,
+  onSkipAnswer,
+}) => {
   const [answer, setAnswer] = useState([
     { selectedAnswer: "", isCorrect: null },
   ]);
 
+  let timer = 10000;
+
+  if (answer.selectedAnswer) {
+    timer = 1000;
+  }
+  if (answer.isCorrect !== null) {
+    timer = 2000;
+  }
   function handleSelectAnswer(userAnswer) {
     setAnswer({
       selectedAnswer: userAnswer,
@@ -37,8 +49,9 @@ export const Question = ({ activeQuestionIndex, onSelectAnswer }) => {
   return (
     <>
       <QuestionTimer
-        timer={10000}
-        onFinishCountdown={() => onSelectAnswer(null)}
+        timer={timer}
+        onTimeout={onSkipAnswer}
+        mode={answerState}
       />
       <div id="question">
         <h2>
