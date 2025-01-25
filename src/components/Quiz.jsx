@@ -2,17 +2,16 @@ import React from "react";
 import { useState } from "react";
 
 import QUESTIONS from "../question";
-import quizCompleteImg from "../assets/quiz-complete.png";
+
 import QuestionTimer from "./QuestionTimer";
 import { useCallback } from "react";
 import { useRef } from "react";
 import Answers from "./Answers";
 import { Question } from "./Question";
+import Summary from "./Summary";
 
 const Quiz = () => {
   const [userAnswers, setUserAnswers] = useState([]);
-
-
 
   const activeQuestionIndex = userAnswers.length;
 
@@ -26,15 +25,13 @@ const Quiz = () => {
     });
   },
   []);
-  const handleSkipAnswer = useCallback(() => handleSelectAnswer(null), [handleSelectAnswer]);
+  const handleSkipAnswer = useCallback(
+    () => handleSelectAnswer(null),
+    [handleSelectAnswer]
+  );
 
   if (quizIsComplete) {
-    return (
-      <div id="summary">
-        <img src={quizCompleteImg} alt="" />
-        <h2>Quiz Completed</h2>
-      </div>
-    );
+    return <Summary userAnswers={userAnswers} />;
   }
 
   return (
