@@ -9,9 +9,8 @@ export const Question = ({
   onSelectAnswer,
   onSkipAnswer,
 }) => {
-  const [answer, setAnswer] = useState([
-    { selectedAnswer: "", isCorrect: null },
-  ]);
+  const [answer, setAnswer] = useState({ selectedAnswer: "", isCorrect: null });
+
 
   let timer = 10000;
 
@@ -49,8 +48,9 @@ export const Question = ({
   return (
     <>
       <QuestionTimer
-        timer={timer}
-        onTimeout={onSkipAnswer}
+        key={timer}
+        timeout={timer}
+        onTimeout={answer.selectedAnswer === "" ? onSkipAnswer : null}
         mode={answerState}
       />
       <div id="question">

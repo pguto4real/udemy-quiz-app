@@ -12,19 +12,21 @@ import { Question } from "./Question";
 const Quiz = () => {
   const [userAnswers, setUserAnswers] = useState([]);
 
+
+
   const activeQuestionIndex = userAnswers.length;
 
   const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
 
   const handleSelectAnswer = useCallback(function handleSelectAnswer(
-    selectedAnswer
+    answerSelected
   ) {
     setUserAnswers((prevUserAnswers) => {
-      return [...prevUserAnswers, selectedAnswer];
+      return [...prevUserAnswers, answerSelected];
     });
   },
   []);
-  const handleSkipAnswer = useCallback(() => handleSelectAnswer(null), []);
+  const handleSkipAnswer = useCallback(() => handleSelectAnswer(null), [handleSelectAnswer]);
 
   if (quizIsComplete) {
     return (
