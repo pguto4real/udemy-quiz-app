@@ -2,7 +2,7 @@ import React from "react";
 import quizCompleteImg from "../assets/quiz-complete.png";
 import QUESTIONS from "../question";
 const Summary = ({ userAnswers }) => {
-  console.log(userAnswers);
+
   return (
     <div id="summary">
       <img src={quizCompleteImg} alt="" />
@@ -22,12 +22,23 @@ const Summary = ({ userAnswers }) => {
         </p>
       </div>
       <ol>
-        
-        <li>
-          <h3>2</h3>
-          <p className="question">question text</p>
-          <p className="user-answer">user answers</p>
-        </li>
+        {userAnswers.map((answer, index) => {
+          let cssClass = "user-answer";
+          if (answer === null) {
+            cssClass += " skipped";
+          } else if (answer === QUESTIONS[index].answers[0]) {
+            cssClass += " correct";
+          } else {
+            cssClass += " wrong";
+          }
+          return (
+            <li key={answer}>
+              <h3>{index + 1}</h3>
+              <p className="question">{QUESTIONS[index].text}</p>
+              <p className={cssClass}>{answer ?? "Skipped"}</p>
+            </li>
+          );
+        })}
       </ol>
     </div>
   );
