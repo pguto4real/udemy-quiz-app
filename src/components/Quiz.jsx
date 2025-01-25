@@ -21,24 +21,28 @@ const Quiz = () => {
     function handleSelectAnswer(selectedAnswer) {
       setAnswerState("answered");
 
+      console.log(userAnswers, "1");
       setUserAnswers((prevUserAnswers) => {
         return [...prevUserAnswers, selectedAnswer];
       });
-
+      console.log(userAnswers, "2");
       setTimeout(() => {
+        console.log(userAnswers, "3");
         if (selectedAnswer === QUESTIONS[activeQuestionIndex].answers[0]) {
           setAnswerState("correct");
         } else {
           setAnswerState("wrong");
         }
         setTimeout(() => {
+          console.log(userAnswers, "4");
           setAnswerState("");
         }, 2000);
       }, 1000);
+      console.log(userAnswers, "5");
+      return;
     },
     [activeQuestionIndex]
   );
-  
 
   if (quizIsComplete) {
     return (
@@ -53,11 +57,8 @@ const Quiz = () => {
     <div id="quiz">
       <Question
         key={activeQuestionIndex}
-        questionText={QUESTIONS[activeQuestionIndex].text}
-        answers={QUESTIONS[activeQuestionIndex].answers}
+        activeQuestionIndex={activeQuestionIndex}
         onSelectAnswer={handleSelectAnswer}
-        selectedAnswer={userAnswers[userAnswers.length - 1]}
-        answerState={answerState}
       />
     </div>
   );
